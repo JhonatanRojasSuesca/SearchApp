@@ -1,6 +1,7 @@
 package com.jhonatanrojas.searchapp.app
 
 import android.app.Application
+import com.jhonatanrojas.searchapp.di.koin.repositoryModule
 import com.jhonatanrojas.searchapp.di.koin.retrofitModule
 import com.jhonatanrojas.searchapp.di.koin.useCaseModule
 import com.jhonatanrojas.searchapp.di.koin.viewModelModule
@@ -24,8 +25,9 @@ class App : Application() {
             modules(
                 listOf(
                     retrofitModule,
-                    viewModelModule,
-                    useCaseModule
+                    repositoryModule,
+                    useCaseModule,
+                    viewModelModule
                 )
             )
         }
