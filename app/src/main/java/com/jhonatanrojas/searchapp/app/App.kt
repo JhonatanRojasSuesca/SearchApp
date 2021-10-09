@@ -1,4 +1,4 @@
-package com.jhonatanrojas.searchapp
+package com.jhonatanrojas.searchapp.app
 
 import android.app.Application
 import com.jhonatanrojas.searchapp.di.koin.retrofitModule

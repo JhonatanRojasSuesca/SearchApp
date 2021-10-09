@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/HomeFragment">
+
+    <fragment
+        android:id="@+id/HomeFragment"
+        android:name="com.jhonatanrojas.searchapp.ui.fragments.HomeFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_Home_to_detail"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_Home_to_Cart"
+            app:destination="@id/CartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.jhonatanrojas.searchapp.ui.fragments.DetailFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_detail">
+
+        <action
+            android:id="@+id/action_DetailFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
+        <action
+            android:id="@+id/action_DetailFragment_to_CartFragment"
+            app:destination="@id/CartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/CartFragment"
+        android:name="com.jhonatanrojas.searchapp.ui.fragments.CartFragment"
+        android:label="@string/three_fragment_label"
+        tools:layout="@layout/fragment_cart">
+
+        <action
+            android:id="@+id/action_CartFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
+        <action
+            android:id="@+id/action_CartFragment_to_DetailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+</navigation>

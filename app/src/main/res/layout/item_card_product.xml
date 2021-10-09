@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lnlItemSupply"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_8dp"
+    android:layout_marginTop="@dimen/margin_8dp"
+    android:layout_marginEnd="@dimen/margin_8dp"
+    android:layout_marginBottom="@dimen/margin_8dp"
+    android:background="@drawable/box_of_text">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imvProduct"
+        android:layout_width="@dimen/size_70dp"
+        android:layout_height="@dimen/size_100dp"
+        android:layout_margin="@dimen/margin_8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/lnlProduct"
+        android:layout_width="@dimen/match_parent_0dp"
+        android:layout_height="@dimen/match_parent_0dp"
+        android:layout_marginStart="@dimen/margin_8dp"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@id/imvProduct"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/txvTitleSellerBy">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txvProductName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            tools:text="Palitos de queso y mozarella " />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txvSupplyProductUnit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_16sp"
+            tools:text="$ 23333" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txvTitleSellerBy"
+        android:layout_width="@dimen/match_parent_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8dp"
+        android:textSize="@dimen/text_12sp"
+        android:text="@string/sellerBy"
+        app:layout_constraintBottom_toBottomOf="@+id/imvProduct"
+        app:layout_constraintStart_toEndOf="@+id/imvProduct" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txvNameSeller"
+        android:layout_width="@dimen/match_parent_0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_14sp"
+        android:textStyle="bold"
+        tools:text="ktronix"
+        app:layout_constraintStart_toEndOf="@+id/txvTitleSellerBy"
+        app:layout_constraintBottom_toBottomOf="@+id/txvTitleSellerBy" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
