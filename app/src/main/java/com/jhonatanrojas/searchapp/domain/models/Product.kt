@@ -4,16 +4,14 @@ data class Product(
     val id: String,
     val title: String,
     val price: Double,
-    val original_price: Double?,
-    val seller: Seller?,
+    val original_price: Double,
+    val eshop: Eshop?,
     val available_quantity: Int,
     val sold_quantity: Int,
     val thumbnail: String,
     val pictures: List<Picture>,
     val attributes: List<Attribute>
     )
-
-data class Seller(val eshop: Eshop?)
 
 data class Eshop(val nick_name: String?)
 

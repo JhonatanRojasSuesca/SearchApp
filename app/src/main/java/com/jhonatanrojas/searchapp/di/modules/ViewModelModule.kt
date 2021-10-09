@@ -1,4 +1,4 @@
-package com.jhonatanrojas.searchapp.di.koin
+package com.jhonatanrojas.searchapp.di.modules
 
 import com.jhonatanrojas.searchapp.ui.viewModels.SearchProductViewModel
 import com.jhonatanrojas.searchapp.utils.manageErrorsToPresentation

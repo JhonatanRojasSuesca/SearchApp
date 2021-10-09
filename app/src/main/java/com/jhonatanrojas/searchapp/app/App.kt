@@ -1,10 +1,10 @@
 package com.jhonatanrojas.searchapp.app
 
 import android.app.Application
-import com.jhonatanrojas.searchapp.di.koin.repositoryModule
-import com.jhonatanrojas.searchapp.di.koin.retrofitModule
-import com.jhonatanrojas.searchapp.di.koin.useCaseModule
-import com.jhonatanrojas.searchapp.di.koin.viewModelModule
+import com.jhonatanrojas.searchapp.di.modules.repositoryModule
+import com.jhonatanrojas.searchapp.di.modules.retrofitModule
+import com.jhonatanrojas.searchapp.di.modules.useCaseModule
+import com.jhonatanrojas.searchapp.di.modules.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 

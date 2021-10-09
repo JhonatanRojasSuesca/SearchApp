@@ -1,4 +1,4 @@
-package com.jhonatanrojas.searchapp.di.koin
+package com.jhonatanrojas.searchapp.di.modules
 
 import com.jhonatanrojas.searchapp.data.networkApi.SearchProductApi
 import com.jhonatanrojas.searchapp.di.network.NetworkClient

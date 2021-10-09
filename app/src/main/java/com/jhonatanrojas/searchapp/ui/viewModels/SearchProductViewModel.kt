@@ -6,7 +6,6 @@ import com.jhonatanrojas.searchapp.R
 import com.jhonatanrojas.searchapp.domain.exception.BadRequestException
 import com.jhonatanrojas.searchapp.domain.exception.DomainException
 import com.jhonatanrojas.searchapp.domain.exception.HttpErrorCode
-import com.jhonatanrojas.searchapp.domain.exception.InternalErrorException
 import com.jhonatanrojas.searchapp.domain.useCase.SearchProductUC
 import com.jhonatanrojas.searchapp.ui.states.SearchState
 import com.jhonatanrojas.searchapp.utils.Mapper
@@ -30,9 +29,8 @@ class SearchProductViewModel(
     val model: StateFlow<SearchState>
         get() = _model
 
-
-    fun searchProduct(reference: String) = viewModelScope.launch {
-        searchProductUC.getSearchProduct(reference)
+    fun searchProduct(search: String) = viewModelScope.launch {
+        searchProductUC.getSearchProduct(search, 0, 30)
             .onStart {
                 _model.value = SearchState.Loading
             }
@@ -42,7 +40,7 @@ class SearchProductViewModel(
             .handleViewModelExceptions { domainException ->
                 _model.value = getStateFromException(domainException)
             }
-           .collect { response ->
+            .collect { response ->
                _model.value = SearchState.Success(response)
             }
     }

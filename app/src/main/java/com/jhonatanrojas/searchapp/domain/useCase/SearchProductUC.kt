@@ -1,6 +1,6 @@
 package com.jhonatanrojas.searchapp.domain.useCase
 
-import com.jhonatanrojas.searchapp.domain.models.Product
+import com.jhonatanrojas.searchapp.domain.models.ProductsDomain
 import com.jhonatanrojas.searchapp.domain.repository.SearchProductRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -10,7 +10,11 @@ import kotlinx.coroutines.flow.Flow
 class SearchProductUC(
     private val searchProductRepository: SearchProductRepository
 ) {
-    fun getSearchProduct(reference: String): Flow<List<Product>> {
-        return searchProductRepository.searchProduct(reference)
+    fun getSearchProduct(search: String, offset: Int, limit: Int): Flow<ProductsDomain> {
+        return searchProductRepository.searchProduct(
+            search,
+            offset,
+            limit
+        )
     }
 }

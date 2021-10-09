@@ -1,4 +1,4 @@
-package com.jhonatanrojas.searchapp.di.koin
+package com.jhonatanrojas.searchapp.di.modules
 
 import com.jhonatanrojas.searchapp.domain.useCase.SearchProductUC
 import org.koin.core.module.Module
@@ -14,6 +14,4 @@ val useCaseModule: Module = module {
             searchProductRepository = get()
         )
     }
-
 }
-
