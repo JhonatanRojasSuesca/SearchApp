@@ -7,4 +7,11 @@
     <string name="first_fragment_label">Home</string>
     <string name="second_fragment_label">Detail</string>
     <string name="three_fragment_label">Cart</string>
+
+    <string name="error_missing_params">Hacen falta parametros por ser enviados.</string>
+    <string name="error_internal_error_exception">Hemos tenido problemas con el servidor, intentalo nuevamente</string>
+    <string name="error_time_out">El tiempo de la petición ha expirado</string>
+    <string name="error_parsing_error">Error al transformar los datos en la capa de datos</string>
+    <string name="error_internet_connection">Error en la conexión de internet, intentalo de nuevo en un momento</string>
+    <string name="error_some_wrong">Ocurrió un problema</string>
 </resources>
