@@ -5,15 +5,15 @@ data class Product(
     val title: String,
     val price: Double,
     val original_price: Double,
-    val eshop: Eshop?,
+    val seller: Seller?,
     val available_quantity: Int,
     val sold_quantity: Int,
     val thumbnail: String,
     val pictures: List<Picture>,
     val attributes: List<Attribute>
-    )
+)
 
-data class Eshop(val nick_name: String?)
+data class Seller(val nick_name: String?)
 
 data class Picture(val id:String, val url: String, val secure_url: String)
 

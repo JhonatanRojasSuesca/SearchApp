@@ -47,7 +47,7 @@ data class ProductResponse(
     @Json(name = "attributes")
     val attributes: List<AttributeResponse>,
     @Json(name = "pictures")
-    val pictures: List<PictureResponse>
+    val pictures: List<PictureResponse> = listOf()
 )
 
 @JsonClass(generateAdapter = true)
@@ -76,5 +76,5 @@ data class AttributeResponse(
     @Json(name = "name")
     val name: String,
     @Json(name = "value_name")
-    val value_name: String
+    val value_name: String?
 )
