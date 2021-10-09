@@ -9,8 +9,8 @@ import retrofit2.http.Query
  */
 interface SearchProductApi {
 
-    @GET("/sites/MLA/search?")
-    fun searchProducts(
+    @GET("/sites/MLA/search")
+    suspend fun searchProducts(
         @Query("q") search: String,
         @Query("offset") offset: Int,
         @Query("limit") limit: Int

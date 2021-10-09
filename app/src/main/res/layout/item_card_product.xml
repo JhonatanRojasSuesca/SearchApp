@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/lnlItemSupply"
+    android:id="@+id/lnlItemProduct"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_8dp"
@@ -42,7 +42,7 @@
             tools:text="Palitos de queso y mozarella " />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txvSupplyProductUnit"
+            android:id="@+id/txvProductPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -67,9 +67,11 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_14sp"
         android:textStyle="bold"
+        android:layout_marginStart="@dimen/margin_8dp"
         tools:text="ktronix"
         app:layout_constraintStart_toEndOf="@+id/txvTitleSellerBy"
-        app:layout_constraintBottom_toBottomOf="@+id/txvTitleSellerBy" />
+        app:layout_constraintBottom_toBottomOf="@+id/txvTitleSellerBy"
+        app:layout_constraintTop_toTopOf="@+id/txvTitleSellerBy" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

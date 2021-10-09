@@ -6,10 +6,10 @@ import com.jhonatanrojas.searchapp.data.response.ProductResponse
 import com.jhonatanrojas.searchapp.data.response.SearchProductsResponse
 import com.jhonatanrojas.searchapp.data.response.SellerResponse
 import com.jhonatanrojas.searchapp.domain.models.Attribute
-import com.jhonatanrojas.searchapp.domain.models.Eshop
 import com.jhonatanrojas.searchapp.domain.models.Picture
 import com.jhonatanrojas.searchapp.domain.models.Product
 import com.jhonatanrojas.searchapp.domain.models.ProductsDomain
+import com.jhonatanrojas.searchapp.domain.models.Seller
 import com.jhonatanrojas.searchapp.utils.Mapper
 
 /**
@@ -33,7 +33,7 @@ val mapToDomainProduct: Mapper<ProductResponse, Product> =
                 title = title,
                 price = price,
                 original_price = original_price ?: 0.0,
-                eshop = seller?.let { mapToDomainEshop(seller) },
+                seller = seller?.let { mapToDomainEshop(seller) },
                 available_quantity = available_quantity,
                 sold_quantity = sold_quantity,
                 thumbnail = thumbnail,
@@ -43,10 +43,10 @@ val mapToDomainProduct: Mapper<ProductResponse, Product> =
         }
     }
 
-val mapToDomainEshop: Mapper<SellerResponse, Eshop> =
+val mapToDomainEshop: Mapper<SellerResponse, Seller> =
     { input ->
         with(input) {
-            Eshop(
+            Seller(
                 nick_name = eshop?.nick_name ?: ""
             )
         }
@@ -68,7 +68,7 @@ val mapToDomainAttributes: Mapper<AttributeResponse, Attribute> =
         with(input) {
             Attribute(
                 name = name,
-                value_name = value_name
+                value_name = value_name ?: ""
             )
         }
     }

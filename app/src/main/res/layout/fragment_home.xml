@@ -23,7 +23,7 @@
         app:layout_constraintTop_toBottomOf="@+id/lytIcMeli">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/referenceProduct"
+            android:id="@+id/edtReferenceProduct"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_56dp"
             android:background="@null"
@@ -37,7 +37,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv"
+        android:id="@+id/rcvProductsSearch"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="visible"
