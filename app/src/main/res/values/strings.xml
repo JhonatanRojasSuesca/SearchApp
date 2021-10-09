@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SearchApp</string>
+    <string name="add_text_hint_search">Busca cualquier producto</string>
+    <string name="searchProduct">Busca Tu Producto</string>
+    <string name="sellerBy">Vendido por : </string>
+
+    <string name="first_fragment_label">Home</string>
+    <string name="second_fragment_label">Detail</string>
+    <string name="three_fragment_label">Cart</string>
 </resources>
