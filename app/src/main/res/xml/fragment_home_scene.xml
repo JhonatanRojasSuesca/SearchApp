@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetStart="@+id/start"
+        app:constraintSetEnd="@id/end"></Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/lytIcMeli"
+            android:layout_height="wrap_content" />
+        <Constraint
+            android:id="@+id/imvMeli"
+            android:visibility="visible" />
+        <Constraint
+            android:id="@+id/txvGeneral"
+            android:visibility="visible" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@id/lytIcMeli"
+            android:layout_height="@dimen/margin_16dp" />
+        <Constraint
+            android:id="@+id/imvMeli"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/txvGeneral"
+            android:visibility="invisible" />
+    </ConstraintSet>
+
+</MotionScene>

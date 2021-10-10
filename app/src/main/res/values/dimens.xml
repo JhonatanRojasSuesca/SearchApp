@@ -9,7 +9,9 @@
     <dimen name="size_56dp">56dp</dimen>
     <dimen name="size_70dp">70dp</dimen>
     <dimen name="size_100dp">100dp</dimen>
-
+    <dimen name="size_25dp">25dp</dimen>
+    <dimen name="size_8dp">8dp</dimen>
+    <dimen name="size_15sp">15sp</dimen>
 
     <!--SIZE sp-->
     <dimen name="text_12sp">12sp</dimen>

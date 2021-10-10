@@ -5,9 +5,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/lytIcMeli"
-        layout="@layout/layout_ic_meli" />
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motionView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/yellow"
+        app:layoutDescription="@xml/fragment_home_scene"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lytIcMeli"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imvMeli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_32dp"
+                app:srcCompat="@drawable/ic_large_meli" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txvGeneral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/searchProduct"
+                android:textSize="@dimen/text_18sp"
+                android:textColor="@color/black"
+                android:textStyle="italic"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_16dp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_2dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/motionView" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/titleSearchReference"
@@ -20,7 +62,7 @@
         android:layout_marginTop="@dimen/margin_16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lytIcMeli">
+        app:layout_constraintTop_toBottomOf="@+id/motionView">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtReferenceProduct"
@@ -41,11 +83,75 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="visible"
-        tools:visibility="visible"
+        tools:visibility="gone"
         tools:listitem="@layout/item_card_product"
         app:layout_constraintTop_toBottomOf="@+id/titleSearchReference"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="0dp"
         app:layout_constraintVertical_bias="1.0" />
 
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/emptySearch"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/match_parent_0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleSearchReference">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txvUps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="@dimen/size_15sp"
+            android:text="@string/oops"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txvNotFound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:textSize="@dimen/size_15sp"
+            android:text="@string/notFoundProducts"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_25dp"
+            android:layout_marginBottom="@dimen/size_8dp"
+            android:background="@drawable/ic_featured" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txvEmptyTittle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="@dimen/size_15sp"
+            android:text="@string/notSearchProduct" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleSearchReference"
+        android:indeterminateTint="@color/purple_700" />
 </androidx.constraintlayout.widget.ConstraintLayout>

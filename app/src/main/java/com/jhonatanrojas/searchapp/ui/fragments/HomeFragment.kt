@@ -11,13 +11,18 @@ import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.jhonatanrojas.searchapp.databinding.FragmentHomeBinding
 import com.jhonatanrojas.searchapp.domain.models.Product
 import com.jhonatanrojas.searchapp.ui.adapters.SearchProductsAdapter
 import com.jhonatanrojas.searchapp.ui.states.SearchState
 import com.jhonatanrojas.searchapp.ui.viewModels.SearchProductViewModel
 import com.jhonatanrojas.searchapp.utils.Utils
+import com.jhonatanrojas.searchapp.utils.Utils.isOnline
+import com.jhonatanrojas.searchapp.utils.doOnEnd
+import com.jhonatanrojas.searchapp.utils.gone
 import com.jhonatanrojas.searchapp.utils.isNotEmptyEditText
+import com.jhonatanrojas.searchapp.utils.visible
 import kotlinx.coroutines.flow.collect
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -32,8 +37,27 @@ class HomeFragment: Fragment() {
 
     private val searchAdapter by lazy {
         SearchProductsAdapter(
-            ::goToDetail
+            ::goToDetail,
+            ::clearOfSet
         )
+    }
+    var flag: Boolean = true
+
+    private val onScrollListener: RecyclerView.OnScrollListener by lazy {
+        object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val visibleItemCount: Int = layoutManager.childCount
+                val totalItemCount: Int = layoutManager.itemCount
+                val firstVisibleItemPosition: Int = layoutManager.findFirstVisibleItemPosition()
+
+                transitionMotion(firstVisibleItemPosition)
+
+                if (isOnline(requireContext())) searchProductViewModel.onLoadMoreData(visibleItemCount, firstVisibleItemPosition, totalItemCount)
+            }
+        }
     }
 
     override fun onCreateView(
@@ -50,6 +74,22 @@ class HomeFragment: Fragment() {
         setupStateFlow()
         setUpAdapter()
         setUpListeners()
+        searchProductViewModel.productsList.observe(viewLifecycleOwner, { products ->
+            binding.let {
+                if (products.isNullOrEmpty()) {
+                    it.emptySearch.visible()
+                    it.txvUps.visible()
+                    it.txvNotFound.visible()
+                    it.txvEmptyTittle.gone()
+                    it.rcvProductsSearch.gone()
+                    searchAdapter.clearAdapter()
+                } else {
+                    it.rcvProductsSearch.visible()
+                    it.emptySearch.gone()
+                    searchAdapter.setList(products, searchProductViewModel.textSearch)
+                }
+            }
+        })
     }
 
     private fun setupStateFlow() {
@@ -90,7 +130,8 @@ class HomeFragment: Fragment() {
 
     private fun searchReference(searchProduct: String) {
         Utils.hideSoftKeyboard(requireActivity())
-        searchProductViewModel.searchProduct(searchProduct)
+        searchProductViewModel.textSearch = searchProduct
+        searchProductViewModel.searchProduct()
     }
 
     private fun searchProductUiStatusModel(searchStatus: SearchState) {
@@ -106,23 +147,28 @@ class HomeFragment: Fragment() {
                 showHttpError(searchStatus.code, searchStatus.message)
             }
             is SearchState.Success -> {
-                binding.let {
-                    val listProducts = searchStatus.searchProducts.productsSearch
-                    if (listProducts.isNullOrEmpty()) {
-                        //  it.lnyReferenceWarning.visible()
-                        // it.rcvListSupplyTasks.gone()
-                    } else {
-                        //it.lnyReferenceWarning.gone()
-                        //it.rcvListSupplyTasks.visible()
-                        searchAdapter.setList(listProducts)
-                    }
-                }
+
             }
             else -> hideLoading()
         }
     }
 
+    fun transitionMotion(firstVisibleItemPosition: Int) {
+        if (firstVisibleItemPosition > 0 && flag) {
+            flag = false
+            binding.motionView.transitionToEnd()
+            binding.txvGeneral.gone()
+        } else if (firstVisibleItemPosition == 0) {
+            binding.txvGeneral.visible()
+            binding.motionView.transitionToStart()
+        }
+        binding.motionView.doOnEnd {
+            flag = true
+        }
+    }
+
     private fun hideLoading() {
+        binding.loading.gone()
     }
 
     private fun showHttpError(code: Int, message: String) {
@@ -132,15 +178,22 @@ class HomeFragment: Fragment() {
     }
 
     private fun showLoadingFragment() {
+        binding.loading.visible()
     }
 
     private fun setUpAdapter() {
         binding.rcvProductsSearch.apply {
+            addOnScrollListener(onScrollListener)
             layoutManager = LinearLayoutManager(context)
             adapter = searchAdapter
         }
     }
 
     private fun goToDetail(product: Product) {
+    }
+
+    private fun clearOfSet() {
+        searchProductViewModel.offSet = 0
+        binding.rcvProductsSearch.scrollToPosition(0)
     }
 }

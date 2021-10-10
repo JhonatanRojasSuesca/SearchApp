@@ -1,11 +1,13 @@
 package com.jhonatanrojas.searchapp.ui.viewModels
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jhonatanrojas.searchapp.R
 import com.jhonatanrojas.searchapp.domain.exception.BadRequestException
 import com.jhonatanrojas.searchapp.domain.exception.DomainException
 import com.jhonatanrojas.searchapp.domain.exception.HttpErrorCode
+import com.jhonatanrojas.searchapp.domain.models.Product
 import com.jhonatanrojas.searchapp.domain.useCase.SearchProductUC
 import com.jhonatanrojas.searchapp.ui.states.SearchState
 import com.jhonatanrojas.searchapp.utils.Mapper
@@ -24,25 +26,32 @@ class SearchProductViewModel(
     private val searchProductUC: SearchProductUC,
     private val mapperExceptions: Mapper<DomainException, Int>
 ) : ViewModel() {
-
+    val productsList: MutableLiveData<List<Product>> = MutableLiveData()
     private val _model = MutableStateFlow<SearchState>(SearchState.HideLoading)
     val model: StateFlow<SearchState>
         get() = _model
+    var offSet = 0
+    var textSearch: String = ""
+    var isDownloading = false
 
-    fun searchProduct(search: String) = viewModelScope.launch {
-        searchProductUC.getSearchProduct(search, 0, 30)
-            .onStart {
-                _model.value = SearchState.Loading
-            }
-            .onCompletion {
-                _model.value = SearchState.HideLoading
-            }
-            .handleViewModelExceptions { domainException ->
-                _model.value = getStateFromException(domainException)
-            }
-            .collect { response ->
-               _model.value = SearchState.Success(response)
-            }
+    fun searchProduct() = viewModelScope.launch {
+        if (isDownloading.not()) {
+            isDownloading = true
+            searchProductUC.getSearchProduct(textSearch, offSet, 30)
+                .onStart {
+                    _model.value = SearchState.Loading
+                }
+                .onCompletion {
+                    _model.value = SearchState.HideLoading
+                    isDownloading = false
+                }
+                .handleViewModelExceptions { domainException ->
+                    _model.value = getStateFromException(domainException)
+                }
+                .collect { response ->
+                    productsList.postValue(response.productsSearch)
+                }
+        }
     }
 
     private fun getStateFromException(
@@ -56,5 +65,27 @@ class SearchProductViewModel(
             else ->
                 SearchState.ShowErrorResource(mapperExceptions(domainException))
         }
+    }
+
+    fun onLoadMoreData(visibleItemCount: Int, firstVisibleItemPosition: Int, totalItemCount: Int) {
+        if (!isInFooter(visibleItemCount, firstVisibleItemPosition, totalItemCount)) {
+            return
+        }
+        if (isDownloading.not()) offSet += PAGE_SIZE
+        searchProduct()
+    }
+
+    private fun isInFooter(
+        visibleItemCount: Int,
+        firstVisibleItemPosition: Int,
+        totalItemCount: Int
+    ): Boolean {
+        return visibleItemCount + firstVisibleItemPosition >= totalItemCount
+            && firstVisibleItemPosition >= 0
+            && totalItemCount >= PAGE_SIZE
+    }
+
+    companion object {
+        private const val PAGE_SIZE = 30
     }
 }

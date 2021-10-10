@@ -14,4 +14,7 @@
     <string name="error_parsing_error">Error al transformar los datos en la capa de datos</string>
     <string name="error_internet_connection">Error en la conexión de internet, intentalo de nuevo en un momento</string>
     <string name="error_some_wrong">Ocurrió un problema</string>
+    <string name="notSearchProduct">inicia buscando el producto para ti </string>
+    <string name="oops">Ooooops!</string>
+    <string name="notFoundProducts">No encontramos lo que estabas buscando\n Inténtalo nuevamente</string>
 </resources>
