@@ -8,6 +8,7 @@ import com.jhonatanrojas.searchapp.domain.exception.BadRequestException
 import com.jhonatanrojas.searchapp.domain.exception.DomainException
 import com.jhonatanrojas.searchapp.domain.exception.HttpErrorCode
 import com.jhonatanrojas.searchapp.domain.models.Product
+import com.jhonatanrojas.searchapp.domain.models.ProductResults
 import com.jhonatanrojas.searchapp.domain.useCase.SearchProductUC
 import com.jhonatanrojas.searchapp.ui.states.SearchState
 import com.jhonatanrojas.searchapp.utils.Mapper
@@ -26,7 +27,7 @@ class SearchProductViewModel(
     private val searchProductUC: SearchProductUC,
     private val mapperExceptions: Mapper<DomainException, Int>
 ) : ViewModel() {
-    val productsList: MutableLiveData<List<Product>> = MutableLiveData()
+    val productsList: MutableLiveData<List<ProductResults>> = MutableLiveData()
     private val _model = MutableStateFlow<SearchState>(SearchState.HideLoading)
     val model: StateFlow<SearchState>
         get() = _model

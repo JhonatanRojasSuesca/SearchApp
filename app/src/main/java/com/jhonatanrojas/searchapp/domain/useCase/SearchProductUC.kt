@@ -1,7 +1,7 @@
 package com.jhonatanrojas.searchapp.domain.useCase
 
 import com.jhonatanrojas.searchapp.domain.models.ProductsDomain
-import com.jhonatanrojas.searchapp.domain.repository.SearchProductRepository
+import com.jhonatanrojas.searchapp.domain.repositoryInterface.SearchProductRepository
 import kotlinx.coroutines.flow.Flow
 
 /**

@@ -8,6 +8,7 @@ import com.jhonatanrojas.searchapp.data.response.SellerResponse
 import com.jhonatanrojas.searchapp.domain.models.Attribute
 import com.jhonatanrojas.searchapp.domain.models.Picture
 import com.jhonatanrojas.searchapp.domain.models.Product
+import com.jhonatanrojas.searchapp.domain.models.ProductResults
 import com.jhonatanrojas.searchapp.domain.models.ProductsDomain
 import com.jhonatanrojas.searchapp.domain.models.Seller
 import com.jhonatanrojas.searchapp.utils.Mapper
@@ -20,7 +21,21 @@ val mapToDomainSearchProducts: Mapper<
     { input ->
         with(input) {
             ProductsDomain(
-                productsSearch = results.map(mapToDomainProduct)
+                productsSearch = results.map(mapToDomainProductResults)
+            )
+        }
+    }
+
+val mapToDomainProductResults: Mapper<ProductResponse, ProductResults> =
+    { input ->
+        with(input) {
+            ProductResults(
+                id = id,
+                title = title,
+                price = price,
+                seller = seller?.let { mapToDomainEshop(seller) },
+                thumbnail = thumbnail,
+
             )
         }
     }
