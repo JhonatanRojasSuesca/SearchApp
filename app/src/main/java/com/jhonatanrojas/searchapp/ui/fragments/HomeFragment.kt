@@ -15,7 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jhonatanrojas.searchapp.databinding.FragmentHomeBinding
-import com.jhonatanrojas.searchapp.domain.models.Product
+import com.jhonatanrojas.searchapp.domain.models.ProductResults
 import com.jhonatanrojas.searchapp.ui.adapters.SearchProductsAdapter
 import com.jhonatanrojas.searchapp.ui.bottomSheets.BottomSheetDialogGeneric
 import com.jhonatanrojas.searchapp.ui.states.SearchState
@@ -211,7 +211,7 @@ class HomeFragment: Fragment() {
         }
     }
 
-    private fun goToDetail(product: Product) {
+    private fun goToDetail(product: ProductResults) {
     }
 
     private fun clearOfSet() {

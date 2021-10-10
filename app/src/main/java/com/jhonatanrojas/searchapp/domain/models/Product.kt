@@ -13,7 +13,6 @@ data class Product(
     val attributes: List<Attribute>
 )
 
-data class Seller(val nick_name: String?)
 
 data class Picture(val id:String, val url: String, val secure_url: String)
 

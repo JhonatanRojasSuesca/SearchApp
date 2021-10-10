@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jhonatanrojas.searchapp.databinding.ItemCardProductBinding
 import com.jhonatanrojas.searchapp.domain.models.Product
+import com.jhonatanrojas.searchapp.domain.models.ProductResults
 import com.jhonatanrojas.searchapp.utils.gone
 import com.jhonatanrojas.searchapp.utils.setImageUrl
 import com.jhonatanrojas.searchapp.utils.visible
@@ -14,14 +15,14 @@ import com.jhonatanrojas.searchapp.utils.visible
  * Created by JHONATAN ROJAS on 9/10/2021.
  */
 class SearchProductsAdapter(
-    private val selectProduct: (Product) -> Unit,
+    private val selectProduct: (ProductResults) -> Unit,
     private val clearOfSet: () -> Unit
 ) : RecyclerView.Adapter<SearchProductsAdapter.SearchProductViewHolder>() {
 
-    private var storageProduct: ArrayList<Product> = arrayListOf()
+    private var storageProduct: ArrayList<ProductResults> = arrayListOf()
     private var changeSearch: String = ""
 
-    fun setList(listProducts: List<Product>, newSearch: String) {
+    fun setList(listProducts: List<ProductResults>, newSearch: String) {
         if (changeSearch != newSearch) {
             changeSearch = newSearch
             clearAdapter()
@@ -59,7 +60,7 @@ class SearchProductsAdapter(
     open class SearchProductViewHolder(private var view: ItemCardProductBinding) :
         RecyclerView.ViewHolder(view.root) {
 
-        fun bind(product: Product, context: Context) {
+        fun bind(product: ProductResults, context: Context) {
             view.apply {
                 txvProductName.text = product.title
                 txvProductPrice.text = "$  ${product.price.toInt()}"
