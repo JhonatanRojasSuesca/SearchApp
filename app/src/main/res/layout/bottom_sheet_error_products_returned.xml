@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin_16dp"
+    tools:ignore="UnusedResources">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txvTitleErrorProducts"
+        android:layout_width="@dimen/match_parent_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_25dp"
+        android:text="@string/error_some_wrong"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imvWarningErrorProducts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvTitleErrorProducts"
+        app:srcCompat="@drawable/ic_warning" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txvDescriptionErrorProducts"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24dp"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvWarningErrorProducts" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRetry"
+        style="@style/CompleteButtonBlue"
+        android:layout_width="@dimen/match_parent_0dp"
+        android:layout_marginTop="@dimen/margin_24dp"
+        android:text="@string/entered"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvDescriptionErrorProducts" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

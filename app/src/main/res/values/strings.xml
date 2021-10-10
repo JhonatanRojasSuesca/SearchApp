@@ -17,4 +17,5 @@
     <string name="notSearchProduct">inicia buscando el producto para ti </string>
     <string name="oops">Ooooops!</string>
     <string name="notFoundProducts">No encontramos lo que estabas buscando\n Inténtalo nuevamente</string>
+    <string name="entered">Entendido</string>
 </resources>

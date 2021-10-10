@@ -61,7 +61,7 @@ class SearchProductViewModel(
             is BadRequestException ->
                 SearchState.ShowErrorResource(R.string.error_missing_params)
             is HttpErrorCode ->
-                SearchState.ShowHttpError(domainException.code, domainException.message)
+                SearchState.ShowHttpError(domainException.message)
             else ->
                 SearchState.ShowErrorResource(mapperExceptions(domainException))
         }

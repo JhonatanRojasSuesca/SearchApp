@@ -8,13 +8,16 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jhonatanrojas.searchapp.databinding.FragmentHomeBinding
 import com.jhonatanrojas.searchapp.domain.models.Product
 import com.jhonatanrojas.searchapp.ui.adapters.SearchProductsAdapter
+import com.jhonatanrojas.searchapp.ui.bottomSheets.BottomSheetDialogGeneric
 import com.jhonatanrojas.searchapp.ui.states.SearchState
 import com.jhonatanrojas.searchapp.ui.viewModels.SearchProductViewModel
 import com.jhonatanrojas.searchapp.utils.Utils
@@ -71,9 +74,13 @@ class HomeFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpObserverLiveData()
         setupStateFlow()
         setUpAdapter()
         setUpListeners()
+    }
+
+    private fun setUpObserverLiveData() {
         searchProductViewModel.productsList.observe(viewLifecycleOwner, { products ->
             binding.let {
                 if (products.isNullOrEmpty()) {
@@ -144,10 +151,7 @@ class HomeFragment: Fragment() {
                 showError(searchStatus.resource)
             }
             is SearchState.ShowHttpError -> {
-                showHttpError(searchStatus.code, searchStatus.message)
-            }
-            is SearchState.Success -> {
-
+                showHttpError(searchStatus.message)
             }
             else -> hideLoading()
         }
@@ -171,10 +175,28 @@ class HomeFragment: Fragment() {
         binding.loading.gone()
     }
 
-    private fun showHttpError(code: Int, message: String) {
+    private fun showHttpError(message: String) {
+        val bottomSheetDialogGeneric = BottomSheetDialogGeneric(
+            description = message,
+            cancelable = false
+        )
+        showBottomSheetDialog(bottomSheetDialogGeneric)
     }
 
     private fun showError(resource: Int) {
+        val bottomSheetDialogGeneric = BottomSheetDialogGeneric(
+            description = getString(resource),
+            cancelable = false
+        )
+        showBottomSheetDialog(bottomSheetDialogGeneric)
+    }
+
+    private fun showBottomSheetDialog(dialogFragment: DialogFragment) {
+        (this as? FragmentActivity)?.let {
+            if (!dialogFragment.isAdded) {
+                dialogFragment.show(it.supportFragmentManager, dialogFragment.tag)
+            }
+        }
     }
 
     private fun showLoadingFragment() {
