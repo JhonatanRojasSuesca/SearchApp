@@ -14,14 +14,26 @@ import com.jhonatanrojas.searchapp.utils.visible
  * Created by JHONATAN ROJAS on 9/10/2021.
  */
 class SearchProductsAdapter(
-    private val selectProduct: (Product) -> Unit
+    private val selectProduct: (Product) -> Unit,
+    private val clearOfSet: () -> Unit
 ) : RecyclerView.Adapter<SearchProductsAdapter.SearchProductViewHolder>() {
 
     private var storageProduct: ArrayList<Product> = arrayListOf()
+    private var changeSearch: String = ""
 
-    fun setList(listProducts: List<Product>) {
-        storageProduct = arrayListOf()
+    fun setList(listProducts: List<Product>, newSearch: String) {
+        if (changeSearch != newSearch) {
+            changeSearch = newSearch
+            clearAdapter()
+        }
         storageProduct.addAll(listProducts)
+        notifyDataSetChanged()
+    }
+
+    fun clearAdapter() {
+        storageProduct = arrayListOf()
+        storageProduct.clear()
+        clearOfSet.invoke()
         notifyDataSetChanged()
     }
 
