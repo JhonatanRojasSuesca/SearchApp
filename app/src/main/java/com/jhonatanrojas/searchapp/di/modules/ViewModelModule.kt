@@ -1,5 +1,6 @@
 package com.jhonatanrojas.searchapp.di.modules
 
+import com.jhonatanrojas.searchapp.ui.viewModels.DetailProductViewModel
 import com.jhonatanrojas.searchapp.ui.viewModels.SearchProductViewModel
 import com.jhonatanrojas.searchapp.utils.manageErrorsToPresentation
 import org.koin.android.viewmodel.dsl.viewModel
@@ -15,6 +16,13 @@ val viewModelModule: Module = module {
     viewModel {
         SearchProductViewModel(
             searchProductUC = get(),
+            mapperExceptions = manageErrorsToPresentation()
+        )
+    }
+
+    viewModel {
+        DetailProductViewModel(
+            getProductDetailUC = get(),
             mapperExceptions = manageErrorsToPresentation()
         )
     }

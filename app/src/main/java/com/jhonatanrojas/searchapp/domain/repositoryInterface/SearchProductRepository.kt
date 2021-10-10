@@ -1,4 +1,4 @@
-package com.jhonatanrojas.searchapp.domain.repository
+package com.jhonatanrojas.searchapp.domain.repositoryInterface
 
 import com.jhonatanrojas.searchapp.domain.models.ProductsDomain
 import kotlinx.coroutines.flow.Flow
