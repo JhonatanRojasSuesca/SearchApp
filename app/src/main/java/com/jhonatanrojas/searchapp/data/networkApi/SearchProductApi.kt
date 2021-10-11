@@ -3,6 +3,7 @@ package com.jhonatanrojas.searchapp.data.networkApi
 import com.jhonatanrojas.searchapp.data.response.ProductResponse
 import com.jhonatanrojas.searchapp.data.response.SearchProductsResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -17,8 +18,8 @@ interface SearchProductApi {
         @Query("limit") limit: Int
     ): SearchProductsResponse
 
-    @GET("/item")
+    @GET("/items/{ids}")
     suspend fun getProductDetail(
-        @Query("ids") id: String
+        @Path("ids") id: String
     ): ProductResponse
 }

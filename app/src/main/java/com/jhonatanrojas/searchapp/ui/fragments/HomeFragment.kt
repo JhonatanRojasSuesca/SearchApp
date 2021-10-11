@@ -12,6 +12,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jhonatanrojas.searchapp.databinding.FragmentHomeBinding
@@ -212,6 +213,9 @@ class HomeFragment: Fragment() {
     }
 
     private fun goToDetail(product: ProductResults) {
+       Navigation.findNavController(requireView()).navigate(
+            HomeFragmentDirections.actionHomeToDetail(product.id)
+       )
     }
 
     private fun clearOfSet() {

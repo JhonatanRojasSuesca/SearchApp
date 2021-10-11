@@ -24,6 +24,10 @@
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_detail">
 
+        <argument
+            android:name="idProduct"
+            app:argType="string" />
+
         <action
             android:id="@+id/action_DetailFragment_to_HomeFragment"
             app:destination="@id/HomeFragment" />
