@@ -18,4 +18,9 @@
     <string name="oops">Ooooops!</string>
     <string name="notFoundProducts">No encontramos lo que estabas buscando\n Inténtalo nuevamente</string>
     <string name="entered">Entendido</string>
+    <string name="detailProduct">Detalle \ndel Producto</string>
+    <string name="price_origin">Precio Original: $ %1$s</string>
+    <string name="price_product">Precio: $ %1$s</string>
+    <string name="sold_quantity">Se han vendido %1$s no te quedes sin el tuyo</string>
+
 </resources>
