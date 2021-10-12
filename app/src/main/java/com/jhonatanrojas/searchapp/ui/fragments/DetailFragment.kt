@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.jhonatanrojas.searchapp.R
 import com.jhonatanrojas.searchapp.databinding.FragmentDetailBinding
+import com.jhonatanrojas.searchapp.ui.adapters.AttributesProductAdapter
 import com.jhonatanrojas.searchapp.ui.adapters.ImagesDetailAdapter
 import com.jhonatanrojas.searchapp.ui.bottomSheets.BottomSheetDialogGeneric
 import com.jhonatanrojas.searchapp.ui.states.DetailState
@@ -33,8 +35,11 @@ class DetailFragment : Fragment() {
     private val binding get() = _binding!!
     private val detailProductViewModel: DetailProductViewModel by viewModel()
     private val args: DetailFragmentArgs by navArgs()
-    private val searchAdapter by lazy {
+    private val viewPagerAdapter by lazy {
         ImagesDetailAdapter()
+    }
+    private val attributesAdapter by lazy {
+        AttributesProductAdapter()
     }
 
     override fun onCreateView(
@@ -60,6 +65,12 @@ class DetailFragment : Fragment() {
         binding.logoMeli.imvArrow.setOnClickListener {
             requireActivity().onBackPressed()
         }
+        binding.layoutInfoProduct.icArrowDown.setOnClickListener {
+            binding.layoutInfoProduct.motionInfoProduct.transitionToEnd()
+        }
+        binding.layoutInfoProduct.icArrowUp.setOnClickListener {
+            binding.layoutInfoProduct.motionInfoProduct.transitionToStart()
+        }
     }
 
     private fun setUpObserverLiveData() {
@@ -69,8 +80,8 @@ class DetailFragment : Fragment() {
                 txvPriceProduct.text = getString(R.string.price_product, product.price.toInt().toString())
                 setPriceOrigin(product.original_price)
                 setSoldQuantity(product.sold_quantity)
-                searchAdapter.setListImage(product.pictures)
-
+                viewPagerAdapter.setListImage(product.pictures)
+                attributesAdapter.setListAttributes(product.attributes)
             }
         })
     }
@@ -120,7 +131,7 @@ class DetailFragment : Fragment() {
             clipToPadding = false
             clipChildren = false
             offscreenPageLimit = 3
-            adapter = searchAdapter
+            adapter = viewPagerAdapter
 
             val compositePageTransformer = CompositePageTransformer()
             val pageTransformer = ViewPager2.PageTransformer { page, position ->
@@ -132,6 +143,10 @@ class DetailFragment : Fragment() {
                 addTransformer(pageTransformer)
             }
             setPageTransformer(compositePageTransformer)
+        }
+        binding.layoutInfoProduct.rvAttributes.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = attributesAdapter
         }
     }
 

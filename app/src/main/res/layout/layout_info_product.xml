@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="UnusedResources">
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motionInfoProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/margin_16dp"
+        app:layoutDescription="@xml/layout_info_product_scene"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/appCompatImageView"
+            android:layout_width="@dimen/match_parent_0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:srcCompat="@drawable/ic_order_pickup"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txvTitleAttributes" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineInfoProductStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.08" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txvTitleAttributes"
+            android:layout_width="@dimen/match_parent_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8dp"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_20sp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineInfoUserEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineInfoProductStart"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/attributes" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAttributes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8dp"
+            android:layout_marginTop="@dimen/margin_4dp"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineInfoUserEnd"
+            app:layout_constraintStart_toEndOf="@+id/guidelineInfoProductStart"
+            app:layout_constraintTop_toBottomOf="@+id/txvTitleAttributes" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineInfoUserEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.90" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icArrowDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_8dp"
+            app:srcCompat="@drawable/ic_arrow_down"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txvTitleAttributes" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icArrowUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_8dp"
+            android:rotation="180"
+            app:srcCompat="@drawable/ic_arrow_down"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txvTitleAttributes" />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

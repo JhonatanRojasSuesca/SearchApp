@@ -16,4 +16,4 @@ data class Product(
 
 data class Picture(val id:String, val url: String, val secure_url: String)
 
-data class Attribute(val name: String, val value_name: String)
+data class Attribute(val name: String, val valueName: String)

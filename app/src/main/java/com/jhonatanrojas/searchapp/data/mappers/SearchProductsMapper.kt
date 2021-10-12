@@ -83,7 +83,7 @@ val mapToDomainAttributes: Mapper<AttributeResponse, Attribute> =
         with(input) {
             Attribute(
                 name = name,
-                value_name = value_name ?: ""
+                valueName = value_name ?: ""
             )
         }
     }
