@@ -85,6 +85,8 @@ class HomeFragment: Fragment() {
                     binding.txvNotFound.gone()
                     binding.txvEmptyTittle.visible()
                     binding.emptySearch.visible()
+                    binding.txvGeneral.visible()
+                    binding.motionView.transitionToStart()
                 } else {
                     requireActivity().finish()
                 }
