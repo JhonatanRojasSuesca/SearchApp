@@ -22,5 +22,6 @@
     <string name="price_origin">Precio Original: $ %1$s</string>
     <string name="price_product">Precio: $ %1$s</string>
     <string name="sold_quantity">Se han vendido %1$s no te quedes sin el tuyo</string>
+    <string name="attributes">Caracteristicas</string>
 
 </resources>

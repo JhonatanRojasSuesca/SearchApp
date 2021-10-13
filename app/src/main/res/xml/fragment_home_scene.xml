@@ -4,7 +4,7 @@
 
     <Transition
         app:constraintSetStart="@+id/start"
-        app:constraintSetEnd="@id/end"></Transition>
+        app:constraintSetEnd="@id/end" />
 
     <ConstraintSet android:id="@+id/start">
         <Constraint

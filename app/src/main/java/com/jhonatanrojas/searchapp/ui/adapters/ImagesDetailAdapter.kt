@@ -2,10 +2,8 @@ package com.jhonatanrojas.searchapp.ui.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.PagerAdapter
 import com.jhonatanrojas.searchapp.databinding.ItemImageProductBinding
 import com.jhonatanrojas.searchapp.domain.models.Picture
 import com.jhonatanrojas.searchapp.utils.setImageUrl
@@ -45,35 +43,5 @@ class ImagesDetailAdapter : RecyclerView.Adapter<ImagesDetailAdapter.ImageViewHo
                 imvImageProduct.setImageUrl(context, picture.url)
             }
         }
-    }
-}
-
-class ImagesDetailAdapter2 : PagerAdapter() {
-
-    private var imagesProducts: ArrayList<Picture> = arrayListOf()
-
-    fun setListImage(picturesList: List<Picture>) {
-        imagesProducts = arrayListOf()
-        imagesProducts.clear()
-        imagesProducts.addAll(picturesList)
-        notifyDataSetChanged()
-    }
-
-    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val layoutInflater = LayoutInflater.from(container.context)
-        val binding = ItemImageProductBinding.inflate(layoutInflater, container, false)
-        val product = imagesProducts[position]
-        binding.imvImageProduct.setImageUrl(container.context, product.url)
-        return binding.root
-    }
-
-    override fun getCount() = imagesProducts.size
-
-    override fun isViewFromObject(view: View, `object`: Any): Boolean {
-        return view == `object`
-    }
-
-    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        container.removeView(`object` as View)
     }
 }
