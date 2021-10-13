@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.flow
  */
 class SearchProductRepositoryImpl(
     private val searchProductApi: SearchProductApi,
-    private val exceptionSupplyManualSearchProductImpl: DomainExceptionRepository,
+    private val exceptionSearchProductImpl: DomainExceptionRepository,
     private val mapSearchProduct: Mapper<
         SearchProductsResponse,
         ProductsDomain>
@@ -28,6 +28,6 @@ class SearchProductRepositoryImpl(
                 offset,
                 limit
             ).run { emit(mapSearchProduct(this)) }
-        }.catch { throw exceptionSupplyManualSearchProductImpl.manageError(it) }
+        }.catch { throw exceptionSearchProductImpl.manageError(it) }
     }
 }

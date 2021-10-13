@@ -8,6 +8,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -75,10 +77,30 @@ class HomeFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.rcvProductsSearch.isVisible || binding.txvUps.isVisible) {
+                    binding.rcvProductsSearch.gone()
+                    binding.txvUps.gone()
+                    binding.txvNotFound.gone()
+                    binding.txvEmptyTittle.visible()
+                    binding.emptySearch.visible()
+                    binding.txvGeneral.visible()
+                    binding.motionView.transitionToStart()
+                } else {
+                    requireActivity().finish()
+                }
+            }
+        })
         setUpObserverLiveData()
         setupStateFlow()
         setUpAdapter()
         setUpListeners()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setUpObserverLiveData() {

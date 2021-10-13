@@ -19,7 +19,7 @@ val repositoryModule: Module = module {
     factory<SearchProductRepository> {
         SearchProductRepositoryImpl(
             searchProductApi = get(),
-            exceptionSupplyManualSearchProductImpl = ExceptionSearchProductImpl(),
+            exceptionSearchProductImpl = ExceptionSearchProductImpl(),
             mapSearchProduct = mapToDomainSearchProducts
         )
     }
@@ -27,7 +27,7 @@ val repositoryModule: Module = module {
     factory<DetailProductByIdRepository> {
         DetailProductByIdRepositoryImpl(
             searchProductApi = get(),
-            exceptionSupplyManualSearchProductImpl = ExceptionSearchProductImpl(),
+            exceptionSearchProductImpl = ExceptionSearchProductImpl(),
             mapDomainProduct = mapToDomainProduct
         )
     }
