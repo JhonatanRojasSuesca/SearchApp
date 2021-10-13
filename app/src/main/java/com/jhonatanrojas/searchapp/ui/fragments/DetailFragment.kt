@@ -61,15 +61,20 @@ class DetailFragment : Fragment() {
         detailProductViewModel.getProductById(idProduct)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun setUpListener() {
         binding.logoMeli.imvArrow.setOnClickListener {
             requireActivity().onBackPressed()
         }
         binding.layoutInfoProduct.icArrowDown.setOnClickListener {
-            binding.layoutInfoProduct.motionInfoProduct.transitionToEnd()
+            binding.layoutInfoProduct.motionInfoProduct.transitionToStart()
         }
         binding.layoutInfoProduct.icArrowUp.setOnClickListener {
-            binding.layoutInfoProduct.motionInfoProduct.transitionToStart()
+            binding.layoutInfoProduct.motionInfoProduct.transitionToEnd()
         }
     }
 
@@ -78,8 +83,8 @@ class DetailFragment : Fragment() {
             binding.apply {
                 txvProductName.text = product.title
                 txvPriceProduct.text = getString(R.string.price_product, product.price.toInt().toString())
-                setPriceOrigin(product.original_price)
-                setSoldQuantity(product.sold_quantity)
+                setPriceOrigin(product.originalPrice)
+                setSoldQuantity(product.soldQuantity)
                 viewPagerAdapter.setListImage(product.pictures)
                 attributesAdapter.setListAttributes(product.attributes)
             }

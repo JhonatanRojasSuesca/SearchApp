@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.flow
  */
 class DetailProductByIdRepositoryImpl(
     private val searchProductApi: SearchProductApi,
-    private val exceptionSupplyManualSearchProductImpl: DomainExceptionRepository,
+    private val exceptionSearchProductImpl: DomainExceptionRepository,
     private val mapDomainProduct: Mapper<
         ProductResponse,
         Product>
@@ -25,6 +25,6 @@ class DetailProductByIdRepositoryImpl(
         return flow {
             searchProductApi.getProductDetail(id)
                 .run { emit(mapDomainProduct(this)) }
-        }.catch { throw exceptionSupplyManualSearchProductImpl.manageError(it) }
+        }.catch { throw exceptionSearchProductImpl.manageError(it) }
     }
 }
