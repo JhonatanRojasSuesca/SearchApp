@@ -1,9 +1,11 @@
 package com.jhonatanrojas.searchapp.ui.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -21,6 +23,8 @@ import com.jhonatanrojas.searchapp.ui.bottomSheets.BottomSheetDialogGeneric
 import com.jhonatanrojas.searchapp.ui.states.DetailState
 import com.jhonatanrojas.searchapp.ui.viewModels.DetailProductViewModel
 import com.jhonatanrojas.searchapp.utils.gone
+import com.jhonatanrojas.searchapp.utils.pinchtozoom.ImageMatrixTouchHandler
+import com.jhonatanrojas.searchapp.utils.setImageUrl
 import com.jhonatanrojas.searchapp.utils.visible
 import kotlinx.coroutines.flow.collect
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -36,10 +40,15 @@ class DetailFragment : Fragment() {
     private val detailProductViewModel: DetailProductViewModel by viewModel()
     private val args: DetailFragmentArgs by navArgs()
     private val viewPagerAdapter by lazy {
-        ImagesDetailAdapter()
+        ImagesDetailAdapter(
+            ::showImageZoom
+        )
     }
     private val attributesAdapter by lazy {
         AttributesProductAdapter()
+    }
+    private val imageMatrixTouchHandler: ImageMatrixTouchHandler by lazy {
+        ImageMatrixTouchHandler(activity)
     }
 
     override fun onCreateView(
@@ -76,6 +85,7 @@ class DetailFragment : Fragment() {
         binding.layoutInfoProduct.icArrowUp.setOnClickListener {
             binding.layoutInfoProduct.motionInfoProduct.transitionToEnd()
         }
+        binding.imvCloseZoom.setOnClickListener { hideImageZoom() }
     }
 
     private fun setUpObserverLiveData() {
@@ -183,7 +193,51 @@ class DetailFragment : Fragment() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private fun showImageZoom(position: Int) {
+        runCatching {
+            detailProductViewModel.product.value?.apply {
+                binding.imvZoomImage.setImageUrl(
+                    this@DetailFragment.requireContext(),
+                    url = getImageToViewPager(position)
+                )
+
+                val alphaAnimation = AlphaAnimation(FROM_ALPHA, TO_ALPHA).apply {
+                    duration = DURATION_ANIMATION
+                }
+                binding.clContainerZoomImage.run {
+                    startAnimation(alphaAnimation)
+                    visible()
+                }
+                binding.imvZoomImage.setOnTouchListener(imageMatrixTouchHandler)
+            }
+        }
+    }
+
+    private fun getImageToViewPager(position: Int): String? =
+        detailProductViewModel.product.value?.pictures?.get(position)?.url
+
+    private fun hideImageZoom() {
+        val alphaAnimation = AlphaAnimation(
+            TO_ALPHA,
+            FROM_ALPHA
+        ).apply {
+            duration = DURATION_ANIMATION
+        }
+        binding.clContainerZoomImage.run {
+            startAnimation(alphaAnimation)
+            gone()
+        }
+        imageMatrixTouchHandler.cancelAnimation()
+    }
+
     private fun showLoadingFragment() {
         binding.loading.visible()
+    }
+
+    companion object {
+        private const val DURATION_ANIMATION = 600L
+        private const val FROM_ALPHA = 0.0F
+        private const val TO_ALPHA = 1.0F
     }
 }

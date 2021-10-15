@@ -11,7 +11,9 @@ import com.jhonatanrojas.searchapp.utils.setImageUrl
 /**
  * Created by JHONATAN ROJAS on 10/10/2021.
  */
-class ImagesDetailAdapter : RecyclerView.Adapter<ImagesDetailAdapter.ImageViewHolder>() {
+class ImagesDetailAdapter(
+    private val selectImage: (position: Int) -> Unit
+) : RecyclerView.Adapter<ImagesDetailAdapter.ImageViewHolder>() {
 
     private var imagesProducts: ArrayList<Picture> = arrayListOf()
 
@@ -31,6 +33,7 @@ class ImagesDetailAdapter : RecyclerView.Adapter<ImagesDetailAdapter.ImageViewHo
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val product = imagesProducts[position]
         holder.bind(product, holder.itemView.context)
+        holder.itemView.setOnClickListener { selectImage(position) }
     }
 
     override fun getItemCount() = imagesProducts.size
