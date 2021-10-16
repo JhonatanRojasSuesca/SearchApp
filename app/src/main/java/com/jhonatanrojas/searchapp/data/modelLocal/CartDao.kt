@@ -16,8 +16,8 @@ interface CartDao {
     fun getCart(): Flow<List<CartProductModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addCart(addProduct: CartProductModel)
+    suspend fun addCart(addProduct: CartProductModel)
 
     @Delete
-    fun deleteItemCard(deleteUser: CartProductModel): Int
+    suspend fun deleteItemCard(deleteUser: CartProductModel): Int
 }

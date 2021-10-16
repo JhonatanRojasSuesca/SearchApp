@@ -12,10 +12,10 @@ class ManagementProductLocalCartUC(
 
     fun getProductCart() = localCartRepository.getProductsCart()
 
-    fun insertProductCart(productResults: ProductResults) {
+    suspend fun insertProductCart(productResults: ProductResults) {
         localCartRepository.insertProduct(productResults)
     }
 
-    fun deleteProductCart(productResults: ProductResults) =
+    suspend fun deleteProductCart(productResults: ProductResults) =
         localCartRepository.deleteItem(productResults)
 }

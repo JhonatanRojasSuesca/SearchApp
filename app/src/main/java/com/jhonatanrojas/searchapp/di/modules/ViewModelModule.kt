@@ -17,7 +17,8 @@ val viewModelModule: Module = module {
     viewModel {
         SearchProductViewModel(
             searchProductUC = get(),
-            mapperExceptions = manageErrorsToPresentation()
+            mapperExceptions = manageErrorsToPresentation(),
+            managementProductLocalCartUC = get()
         )
     }
 

@@ -44,9 +44,11 @@ class HomeFragment: Fragment() {
     private val searchAdapter by lazy {
         SearchProductsAdapter(
             ::goToDetail,
-            ::clearOfSet
+            ::clearOfSet,
+            ::addCart
         )
     }
+
     var flag: Boolean = true
 
     private val onScrollListener: RecyclerView.OnScrollListener by lazy {
@@ -242,6 +244,10 @@ class HomeFragment: Fragment() {
        Navigation.findNavController(requireView()).navigate(
             HomeFragmentDirections.actionHomeToDetail(product.id)
        )
+    }
+
+    private fun addCart(productResults: ProductResults) {
+        searchProductViewModel.addToCart(productResults)
     }
 
     private fun clearOfSet() {

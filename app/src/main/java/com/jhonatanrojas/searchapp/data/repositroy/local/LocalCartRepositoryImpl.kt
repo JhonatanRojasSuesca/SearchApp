@@ -21,11 +21,11 @@ class LocalCartRepositoryImpl(
         return cartDao.getCart().map { mapperToDomainCart(it) }
     }
 
-    override fun insertProduct(productResults: ProductResults) {
-        cartDao.addCart(mapperToCartDomain(productResults))
+    override suspend fun insertProduct(productResults: ProductResults) {
+       cartDao.addCart(mapperToCartDomain(productResults))
     }
 
-    override fun deleteItem(productResults: ProductResults): Int {
+    override suspend fun deleteItem(productResults: ProductResults): Int {
         return cartDao.deleteItemCard(mapperToCartDomain(productResults))
     }
 }
