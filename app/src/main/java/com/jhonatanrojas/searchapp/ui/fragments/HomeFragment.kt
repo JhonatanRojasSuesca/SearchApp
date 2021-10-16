@@ -77,6 +77,14 @@ class HomeFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        managementOnBackHome()
+        setUpObserverLiveData()
+        setupStateFlow()
+        setUpAdapter()
+        setUpListeners()
+    }
+
+    private fun managementOnBackHome() {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (binding.rcvProductsSearch.isVisible || binding.txvUps.isVisible) {
@@ -92,10 +100,6 @@ class HomeFragment: Fragment() {
                 }
             }
         })
-        setUpObserverLiveData()
-        setupStateFlow()
-        setUpAdapter()
-        setUpListeners()
     }
 
     override fun onDestroyView() {

@@ -1,5 +1,6 @@
 package com.jhonatanrojas.searchapp.data.mappers
 
+import com.jhonatanrojas.searchapp.data.modelLocal.CartProductModel
 import com.jhonatanrojas.searchapp.data.response.AttributeResponse
 import com.jhonatanrojas.searchapp.data.response.PictureResponse
 import com.jhonatanrojas.searchapp.data.response.ProductResponse
@@ -87,3 +88,33 @@ val mapToDomainAttributes: Mapper<AttributeResponse, Attribute> =
             )
         }
     }
+
+val mapToCartModel: Mapper<ProductResults, CartProductModel> =
+    { input ->
+        with(input) {
+            CartProductModel(
+                id = id,
+                title = title,
+                price = price,
+                thumbnail = thumbnail
+            )
+        }
+    }
+
+val mapToListProductResults: Mapper<List<CartProductModel>, List<ProductResults>> = { input ->
+    val returnList: MutableList<ProductResults> = mutableListOf()
+    input.forEach { cartProduct ->
+        with(cartProduct) {
+            returnList.add(
+                ProductResults(
+                    id = id,
+                    title = title,
+                    price = price,
+                    seller = null,
+                    thumbnail = thumbnail
+                )
+            )
+        }
+    }
+    returnList
+}
