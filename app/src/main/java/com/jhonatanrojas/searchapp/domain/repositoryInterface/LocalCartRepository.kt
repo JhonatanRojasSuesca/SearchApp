@@ -12,5 +12,6 @@ interface LocalCartRepository {
     suspend fun insertProduct(productResults: ProductResults)
     suspend fun productIsAddCart(id: String) : List<ProductResults>
     suspend fun deleteItem(productResults: ProductResults): Int
+    suspend fun deleteAllCart()
 
 }

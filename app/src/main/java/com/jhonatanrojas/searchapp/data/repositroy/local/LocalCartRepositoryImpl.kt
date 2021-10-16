@@ -36,4 +36,8 @@ class LocalCartRepositoryImpl(
     override suspend fun deleteItem(productResults: ProductResults): Int {
         return cartDao.deleteItemCard(mapperToCartDomain(productResults))
     }
+
+    override suspend fun deleteAllCart() {
+        cartDao.deleteAllChannels()
+    }
 }
