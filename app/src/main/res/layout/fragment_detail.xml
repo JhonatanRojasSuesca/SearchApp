@@ -76,6 +76,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Title" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/purple_700"
+                android:padding="@dimen/margin_4dp"
+                app:srcCompat="@drawable/ic_shopping_cart"
+                android:layout_marginEnd="@dimen/margin_16dp"
+                app:layout_constraintBottom_toTopOf="@+id/layoutInfoProduct"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewpager" />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txvSoldQuantity"
                 android:layout_width="wrap_content"

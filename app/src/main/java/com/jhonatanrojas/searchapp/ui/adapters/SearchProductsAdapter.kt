@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jhonatanrojas.searchapp.databinding.ItemCardProductBinding
-import com.jhonatanrojas.searchapp.domain.models.Product
 import com.jhonatanrojas.searchapp.domain.models.ProductResults
 import com.jhonatanrojas.searchapp.utils.gone
 import com.jhonatanrojas.searchapp.utils.setImageUrl
@@ -16,7 +15,8 @@ import com.jhonatanrojas.searchapp.utils.visible
  */
 class SearchProductsAdapter(
     private val selectProduct: (ProductResults) -> Unit,
-    private val clearOfSet: () -> Unit
+    private val clearOfSet: () -> Unit,
+    private val addCart: (ProductResults) -> Unit
 ) : RecyclerView.Adapter<SearchProductsAdapter.SearchProductViewHolder>() {
 
     private var storageProduct: ArrayList<ProductResults> = arrayListOf()
@@ -45,7 +45,7 @@ class SearchProductsAdapter(
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ItemCardProductBinding.inflate(layoutInflater, parent, false)
         return SearchProductViewHolder(
-            binding
+            binding, addCart
         )
     }
 
@@ -57,11 +57,21 @@ class SearchProductsAdapter(
         holder.bind(product, holder.itemView.context)
     }
 
-    open class SearchProductViewHolder(private var view: ItemCardProductBinding) :
-        RecyclerView.ViewHolder(view.root) {
+    open class SearchProductViewHolder(
+        private var view: ItemCardProductBinding,
+        val addCart: (ProductResults) -> Unit
+    ) : RecyclerView.ViewHolder(view.root) {
 
         fun bind(product: ProductResults, context: Context) {
             view.apply {
+                if(product.isAddCart){
+                    cart.gone()
+                }else{
+                    cart.visible()
+                }
+                cart.setOnClickListener {
+                    cart.gone()
+                    addCart(product) }
                 txvProductName.text = product.title
                 txvProductPrice.text = "$  ${product.price.toInt()}"
                 imvProduct.setImageUrl(context, product.thumbnail)

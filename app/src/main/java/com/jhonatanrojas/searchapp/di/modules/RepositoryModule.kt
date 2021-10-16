@@ -1,11 +1,15 @@
 package com.jhonatanrojas.searchapp.di.modules
 
+import com.jhonatanrojas.searchapp.data.mappers.mapToCartModel
 import com.jhonatanrojas.searchapp.data.mappers.mapToDomainProduct
 import com.jhonatanrojas.searchapp.data.mappers.mapToDomainSearchProducts
+import com.jhonatanrojas.searchapp.data.mappers.mapToListProductResults
 import com.jhonatanrojas.searchapp.data.repositroy.DetailProductByIdRepositoryImpl
 import com.jhonatanrojas.searchapp.data.repositroy.SearchProductRepositoryImpl
 import com.jhonatanrojas.searchapp.data.repositroy.exceptionImpl.ExceptionSearchProductImpl
+import com.jhonatanrojas.searchapp.data.repositroy.local.LocalCartRepositoryImpl
 import com.jhonatanrojas.searchapp.domain.repositoryInterface.DetailProductByIdRepository
+import com.jhonatanrojas.searchapp.domain.repositoryInterface.LocalCartRepository
 import com.jhonatanrojas.searchapp.domain.repositoryInterface.SearchProductRepository
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -31,5 +35,14 @@ val repositoryModule: Module = module {
             mapDomainProduct = mapToDomainProduct
         )
     }
+
+    factory<LocalCartRepository> {
+        LocalCartRepositoryImpl(
+            cartDao = get(),
+            mapperToDomainCart = mapToListProductResults,
+            mapperToCartDomain = mapToCartModel
+        )
+    }
+
 }
 
