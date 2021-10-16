@@ -51,9 +51,24 @@ class SearchProductViewModel(
                     _model.value = getStateFromException(domainException)
                 }
                 .collect { response ->
-                    productsList.postValue(response.productsSearch)
+                    productsList.postValue(getListIdsDatabase(response.productsSearch))
                 }
         }
+    }
+
+    private suspend fun getListIdsDatabase(productsSearch: List<ProductResults>): List<ProductResults> {
+        val listCart = managementProductLocalCartUC.getListIdsCart()
+        if (listCart.isNullOrEmpty().not()) {
+            listCart.forEach { id ->
+                productsSearch.find { it.id == id }
+                    .apply {
+                        this?.let {
+                            isAddCart = true
+                        }
+                    }
+            }
+        }
+        return productsSearch
     }
 
     private fun getStateFromException(
@@ -90,12 +105,6 @@ class SearchProductViewModel(
     fun addToCart(productResults: ProductResults) {
         viewModelScope.launch {
             managementProductLocalCartUC.insertProductCart(productResults)
-            val listTest: MutableLiveData<List<ProductResults>> = productsList
-
-            listTest.value?.find { it.id == productResults.id }.apply {
-                this?.isAddCart = true
-            }
-            productsList.postValue(listTest.value)
         }
     }
 

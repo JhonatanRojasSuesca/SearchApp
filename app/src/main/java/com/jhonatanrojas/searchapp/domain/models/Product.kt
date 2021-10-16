@@ -10,7 +10,8 @@ data class Product(
     val soldQuantity: Int,
     val thumbnail: String,
     val pictures: List<Picture>,
-    val attributes: List<Attribute>
+    val attributes: List<Attribute>,
+    var isAddCart: Boolean = false
 )
 
 

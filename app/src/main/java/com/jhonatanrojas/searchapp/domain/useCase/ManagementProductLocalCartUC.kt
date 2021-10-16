@@ -12,8 +12,17 @@ class ManagementProductLocalCartUC(
 
     fun getProductCart() = localCartRepository.getProductsCart()
 
+    suspend fun getListIdsCart(): List<String> {
+        return localCartRepository.getListIdsCart()
+    }
+
     suspend fun insertProductCart(productResults: ProductResults) {
         localCartRepository.insertProduct(productResults)
+    }
+
+    suspend fun productIsAddCart(id: String): Boolean {
+        val listResults = localCartRepository.productIsAddCart(id)
+        return listResults.isNullOrEmpty().not()
     }
 
     suspend fun deleteProductCart(productResults: ProductResults) =

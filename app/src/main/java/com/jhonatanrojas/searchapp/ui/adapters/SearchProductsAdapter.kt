@@ -69,7 +69,9 @@ class SearchProductsAdapter(
                 }else{
                     cart.visible()
                 }
-                cart.setOnClickListener { addCart(product) }
+                cart.setOnClickListener {
+                    cart.gone()
+                    addCart(product) }
                 txvProductName.text = product.title
                 txvProductPrice.text = "$  ${product.price.toInt()}"
                 imvProduct.setImageUrl(context, product.thumbnail)

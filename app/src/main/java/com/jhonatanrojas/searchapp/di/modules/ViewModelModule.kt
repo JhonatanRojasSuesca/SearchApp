@@ -1,5 +1,6 @@
 package com.jhonatanrojas.searchapp.di.modules
 
+import com.jhonatanrojas.searchapp.data.mappers.mapProductToProductResults
 import com.jhonatanrojas.searchapp.ui.viewModels.CartProductViewModel
 import com.jhonatanrojas.searchapp.ui.viewModels.DetailProductViewModel
 import com.jhonatanrojas.searchapp.ui.viewModels.SearchProductViewModel
@@ -25,7 +26,9 @@ val viewModelModule: Module = module {
     viewModel {
         DetailProductViewModel(
             getProductDetailUC = get(),
-            mapperExceptions = manageErrorsToPresentation()
+            mapperExceptions = manageErrorsToPresentation(),
+            managementProductLocalCartUC = get(),
+            mapperProductToProductResults = mapProductToProductResults
         )
     }
 

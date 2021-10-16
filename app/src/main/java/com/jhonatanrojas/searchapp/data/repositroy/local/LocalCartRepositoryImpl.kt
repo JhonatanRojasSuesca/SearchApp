@@ -21,8 +21,16 @@ class LocalCartRepositoryImpl(
         return cartDao.getCart().map { mapperToDomainCart(it) }
     }
 
+    override suspend fun getListIdsCart(): List<String> {
+        return cartDao.getIdsCart()
+    }
+
     override suspend fun insertProduct(productResults: ProductResults) {
-       cartDao.addCart(mapperToCartDomain(productResults))
+        cartDao.addCart(mapperToCartDomain(productResults))
+    }
+
+    override suspend fun productIsAddCart(id: String): List<ProductResults> {
+        return mapperToDomainCart(cartDao.getProductCart(id))
     }
 
     override suspend fun deleteItem(productResults: ProductResults): Int {

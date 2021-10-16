@@ -8,7 +8,9 @@ import com.jhonatanrojas.searchapp.domain.exception.BadRequestException
 import com.jhonatanrojas.searchapp.domain.exception.DomainException
 import com.jhonatanrojas.searchapp.domain.exception.HttpErrorCode
 import com.jhonatanrojas.searchapp.domain.models.Product
+import com.jhonatanrojas.searchapp.domain.models.ProductResults
 import com.jhonatanrojas.searchapp.domain.useCase.GetProductDetailUC
+import com.jhonatanrojas.searchapp.domain.useCase.ManagementProductLocalCartUC
 import com.jhonatanrojas.searchapp.ui.states.DetailState
 import com.jhonatanrojas.searchapp.utils.Mapper
 import com.jhonatanrojas.searchapp.utils.handleViewModelExceptions
@@ -24,7 +26,9 @@ import kotlinx.coroutines.launch
  */
 class DetailProductViewModel(
     private val getProductDetailUC: GetProductDetailUC,
-    private val mapperExceptions: Mapper<DomainException, Int>
+    private val mapperExceptions: Mapper<DomainException, Int>,
+    private val managementProductLocalCartUC: ManagementProductLocalCartUC,
+    private val mapperProductToProductResults: Mapper<Product, ProductResults>
 ) : ViewModel() {
     val product: MutableLiveData<Product> = MutableLiveData()
     private val _model = MutableStateFlow<DetailState>(DetailState.HideLoading)
@@ -32,6 +36,7 @@ class DetailProductViewModel(
         get() = _model
 
     fun getProductById(id: String) = viewModelScope.launch {
+        val isProductInCart = managementProductLocalCartUC.productIsAddCart(id)
         getProductDetailUC.getProductById(id)
             .onStart {
                 _model.value = DetailState.Loading
@@ -43,8 +48,19 @@ class DetailProductViewModel(
                 _model.value = getStateFromException(domainException)
             }
             .collect { response ->
+                if(isProductInCart){
+                    response.isAddCart = true
+                }
                 product.postValue(response)
             }
+    }
+
+    fun addProductToCart(){
+        viewModelScope.launch {
+            product.value?.let {
+                managementProductLocalCartUC.insertProductCart(mapperProductToProductResults(it))
+            }
+        }
     }
 
     private fun getStateFromException(

@@ -15,6 +15,12 @@ interface CartDao {
     @Query("select * from cartTable")
     fun getCart(): Flow<List<CartProductModel>>
 
+    @Query("select id from cartTable")
+    suspend fun getIdsCart(): List<String>
+
+    @Query("select * from cartTable where id = :id ")
+    suspend fun getProductCart(id: String): List<CartProductModel>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCart(addProduct: CartProductModel)
 

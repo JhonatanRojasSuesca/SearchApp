@@ -8,6 +8,9 @@ import kotlinx.coroutines.flow.Flow
  */
 interface LocalCartRepository {
     fun getProductsCart(): Flow<List<ProductResults>>
+    suspend fun getListIdsCart(): List<String>
     suspend fun insertProduct(productResults: ProductResults)
+    suspend fun productIsAddCart(id: String) : List<ProductResults>
     suspend fun deleteItem(productResults: ProductResults): Int
+
 }

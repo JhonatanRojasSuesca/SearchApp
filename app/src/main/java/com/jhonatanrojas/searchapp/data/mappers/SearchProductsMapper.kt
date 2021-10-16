@@ -118,3 +118,16 @@ val mapToListProductResults: Mapper<List<CartProductModel>, List<ProductResults>
     }
     returnList
 }
+
+val mapProductToProductResults: Mapper<Product, ProductResults> =
+    { input ->
+        with(input) {
+            ProductResults(
+                id = id,
+                title = title,
+                price = price,
+                seller = seller,
+                thumbnail = thumbnail
+                )
+        }
+    }
