@@ -45,8 +45,13 @@ class HomeFragment: Fragment() {
         SearchProductsAdapter(
             ::goToDetail,
             ::clearOfSet,
-            ::addCart
+            ::addCart,
+            ::deleteProductCart
         )
+    }
+
+    private fun deleteProductCart(productResults: ProductResults) {
+        searchProductViewModel.deleteProductCart(productResults)
     }
 
     var flag: Boolean = true

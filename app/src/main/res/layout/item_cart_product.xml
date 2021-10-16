@@ -74,18 +74,6 @@
         app:layout_constraintTop_toTopOf="@+id/txvTitleSellerBy" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/cart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_700"
-        android:padding="@dimen/margin_4dp"
-        app:srcCompat="@drawable/ic_shopping_cart"
-        android:layout_marginBottom="@dimen/margin_8dp"
-        android:layout_marginEnd="@dimen/margin_8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/deleteCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

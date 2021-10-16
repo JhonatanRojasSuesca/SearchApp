@@ -107,6 +107,11 @@ class SearchProductViewModel(
             managementProductLocalCartUC.insertProductCart(productResults)
         }
     }
+    fun deleteProductCart(productResults: ProductResults) {
+        viewModelScope.launch {
+            managementProductLocalCartUC.deleteProductCart(productResults)
+        }
+    }
 
     companion object {
         private const val PAGE_SIZE = 30

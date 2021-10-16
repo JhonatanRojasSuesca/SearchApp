@@ -20,6 +20,10 @@ class ManagementProductLocalCartUC(
         localCartRepository.insertProduct(productResults)
     }
 
+    suspend fun deleteAllCart() {
+        localCartRepository.deleteAllCart()
+    }
+
     suspend fun productIsAddCart(id: String): Boolean {
         val listResults = localCartRepository.productIsAddCart(id)
         return listResults.isNullOrEmpty().not()

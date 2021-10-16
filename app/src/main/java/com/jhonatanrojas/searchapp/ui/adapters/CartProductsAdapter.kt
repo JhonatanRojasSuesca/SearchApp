@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.jhonatanrojas.searchapp.databinding.ItemCardProductBinding
+import com.jhonatanrojas.searchapp.databinding.ItemCartProductBinding
 import com.jhonatanrojas.searchapp.domain.models.ProductResults
 import com.jhonatanrojas.searchapp.utils.gone
 import com.jhonatanrojas.searchapp.utils.setImageUrl
@@ -13,29 +13,20 @@ import com.jhonatanrojas.searchapp.utils.visible
 /**
  * Created by JHONATAN ROJAS on 9/10/2021.
  */
-class SearchProductsAdapter(
-    private val selectProduct: (ProductResults) -> Unit,
-    private val clearOfSet: () -> Unit,
-    private val addCart: (ProductResults) -> Unit,
-    private val deleteProductCart: (ProductResults) -> Unit
-) : RecyclerView.Adapter<SearchProductsAdapter.SearchProductViewHolder>() {
+class CartProductsAdapter(
+    private val deleteProduct: (ProductResults) -> Unit
+) : RecyclerView.Adapter<CartProductsAdapter.SearchProductViewHolder>() {
 
     private var storageProduct: ArrayList<ProductResults> = arrayListOf()
-    private var changeSearch: String = ""
 
-    fun setList(listProducts: List<ProductResults>, newSearch: String) {
-        if (changeSearch != newSearch) {
-            changeSearch = newSearch
-            clearAdapter()
-        }
+    fun setList(listProducts: List<ProductResults>) {
+        clearAdapter()
         storageProduct.addAll(listProducts)
         notifyDataSetChanged()
     }
-
-    fun clearAdapter() {
+    fun clearAdapter(){
         storageProduct = arrayListOf()
         storageProduct.clear()
-        clearOfSet.invoke()
         notifyDataSetChanged()
     }
 
@@ -44,9 +35,9 @@ class SearchProductsAdapter(
         viewType: Int
     ): SearchProductViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ItemCardProductBinding.inflate(layoutInflater, parent, false)
+        val binding = ItemCartProductBinding.inflate(layoutInflater, parent, false)
         return SearchProductViewHolder(
-            binding, addCart, deleteProductCart
+            binding, deleteProduct
         )
     }
 
@@ -54,37 +45,18 @@ class SearchProductsAdapter(
 
     override fun onBindViewHolder(holder: SearchProductViewHolder, position: Int) {
         val product = storageProduct[position]
-        holder.itemView.setOnClickListener { selectProduct(product) }
         holder.bind(product, holder.itemView.context)
     }
 
     open class SearchProductViewHolder(
-        private var view: ItemCardProductBinding,
-        val addCart: (ProductResults) -> Unit,
-        val deleteProductCart: (ProductResults) -> Unit,
-
-        ) : RecyclerView.ViewHolder(view.root) {
+        private var view: ItemCartProductBinding,
+        val deleteProduct: (ProductResults) -> Unit
+    ) : RecyclerView.ViewHolder(view.root) {
 
         fun bind(product: ProductResults, context: Context) {
             view.apply {
-                if(product.isAddCart){
-                    cart.gone()
-                    deleteCart.visible()
-                }else{
-                    cart.visible()
-                    deleteCart.gone()
-                }
-                cart.setOnClickListener {
-                    cart.gone()
-                    deleteCart.visible()
-                    product.isAddCart = true
-                    addCart(product) }
-
                 deleteCart.setOnClickListener {
-                    cart.visible()
-                    deleteCart.gone()
-                    product.isAddCart = false
-                    deleteProductCart(product)
+                    deleteProduct(product)
                 }
                 txvProductName.text = product.title
                 txvProductPrice.text = "$  ${product.price.toInt()}"

@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import io.reactivex.Completable
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -26,4 +27,7 @@ interface CartDao {
 
     @Delete
     suspend fun deleteItemCard(deleteUser: CartProductModel): Int
+
+    @Query("DELETE FROM cartTable")
+    suspend fun deleteAllChannels()
 }

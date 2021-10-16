@@ -8,6 +8,7 @@ import com.jhonatanrojas.searchapp.domain.useCase.ManagementProductLocalCartUC
 import com.jhonatanrojas.searchapp.ui.states.CartState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
@@ -29,12 +30,24 @@ class CartProductViewModel(
             .onStart {
                 _model.value = CartState.Loading
             }
+            .catch { _model.value = CartState.HideLoading }
             .onCompletion {
                 _model.value = CartState.HideLoading
             }
             .collect { response ->
                 productsList.postValue(response)
             }
+    }
 
+    fun deleteProductCart(productResults: ProductResults) {
+        viewModelScope.launch {
+            managementProductLocalCartUC.deleteProductCart(productResults)
+        }
+    }
+
+    fun deleteAllCart() {
+        viewModelScope.launch {
+            managementProductLocalCartUC.deleteAllCart()
+        }
     }
 }
