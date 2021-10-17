@@ -85,6 +85,16 @@ class DetailFragment : Fragment() {
         binding.layoutInfoProduct.icArrowUp.setOnClickListener {
             binding.layoutInfoProduct.motionInfoProduct.transitionToEnd()
         }
+        binding.cart.setOnClickListener {
+            detailProductViewModel.addProductToCart()
+            binding.cart.gone()
+            binding.deleteCart.visible()
+        }
+        binding.deleteCart.setOnClickListener {
+            detailProductViewModel.deleteProductCart()
+            binding.cart.visible()
+            binding.deleteCart.gone()
+        }
         binding.imvCloseZoom.setOnClickListener { hideImageZoom() }
     }
 
@@ -97,6 +107,13 @@ class DetailFragment : Fragment() {
                 setSoldQuantity(product.soldQuantity)
                 viewPagerAdapter.setListImage(product.pictures)
                 attributesAdapter.setListAttributes(product.attributes)
+                if (product.isAddCart){
+                    cart.gone()
+                    deleteCart.visible()
+                } else{
+                    cart.visible()
+                    deleteCart.gone()
+                }
             }
         })
     }

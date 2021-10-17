@@ -9,4 +9,5 @@ data class ProductResults(
     val price: Double,
     val seller: Seller?,
     val thumbnail: String,
+    var isAddCart: Boolean = false
 )

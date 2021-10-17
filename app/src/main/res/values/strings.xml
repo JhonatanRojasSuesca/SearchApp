@@ -4,7 +4,7 @@
     <string name="searchProduct">Busca Tu Producto</string>
     <string name="sellerBy">Vendido por : </string>
 
-    <string name="first_fragment_label">Home</string>
+    <string name="first_fragment_label">Search</string>
     <string name="second_fragment_label">Detail</string>
     <string name="three_fragment_label">Cart</string>
 
@@ -23,5 +23,8 @@
     <string name="price_product">Precio: $ %1$s</string>
     <string name="sold_quantity">Se han vendido %1$s no te quedes sin el tuyo</string>
     <string name="attributes">Caracteristicas</string>
+    <string name="cart_empty">Carrito vacio</string>
+    <string name="empty_cart">Vaciar carrito</string>
+    <string name="cartTitle">Carrito</string>
 
 </resources>

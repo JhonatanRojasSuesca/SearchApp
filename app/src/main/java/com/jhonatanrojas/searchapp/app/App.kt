@@ -1,6 +1,7 @@
 package com.jhonatanrojas.searchapp.app
 
 import android.app.Application
+import com.jhonatanrojas.searchapp.di.modules.cartDB
 import com.jhonatanrojas.searchapp.di.modules.repositoryModule
 import com.jhonatanrojas.searchapp.di.modules.retrofitModule
 import com.jhonatanrojas.searchapp.di.modules.useCaseModule
@@ -24,6 +25,7 @@ class App : Application() {
             androidContext(this@App)
             modules(
                 listOf(
+                    cartDB,
                     retrofitModule,
                     repositoryModule,
                     useCaseModule,

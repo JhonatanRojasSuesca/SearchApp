@@ -21,6 +21,12 @@ class SearchProductRepositoryImpl(
         ProductsDomain>
 ) : SearchProductRepository {
 
+    /**
+     * Este Metodo trae del api la lista de productos referenciados con el texto ingresado por el usuario
+     * se envia por parametro el text de referencia y el paginado y el limite de busqueda
+     * y ejecuta los mapper que pasa del SearchProductsResponse a ProductsDomain modelo de dominio para la vista del search
+     * asi mismo el mapper de exception que se transforma a exception controladas de DomainException
+     */
     override fun searchProduct(search: String, offset: Int, limit: Int): Flow<ProductsDomain> {
         return flow {
             searchProductApi.searchProducts(

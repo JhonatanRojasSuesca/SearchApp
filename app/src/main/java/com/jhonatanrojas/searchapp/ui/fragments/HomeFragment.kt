@@ -44,9 +44,16 @@ class HomeFragment: Fragment() {
     private val searchAdapter by lazy {
         SearchProductsAdapter(
             ::goToDetail,
-            ::clearOfSet
+            ::clearOfSet,
+            ::addCart,
+            ::deleteProductCart
         )
     }
+
+    private fun deleteProductCart(productResults: ProductResults) {
+        searchProductViewModel.deleteProductCart(productResults)
+    }
+
     var flag: Boolean = true
 
     private val onScrollListener: RecyclerView.OnScrollListener by lazy {
@@ -77,6 +84,19 @@ class HomeFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        managementOnBackHome()
+        setUpObserverLiveData()
+        setupStateFlow()
+        setUpAdapter()
+        setUpListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        searchProductViewModel.validateProductsInCart()
+    }
+
+    private fun managementOnBackHome() {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (binding.rcvProductsSearch.isVisible || binding.txvUps.isVisible) {
@@ -92,10 +112,6 @@ class HomeFragment: Fragment() {
                 }
             }
         })
-        setUpObserverLiveData()
-        setupStateFlow()
-        setUpAdapter()
-        setUpListeners()
     }
 
     override fun onDestroyView() {
@@ -155,6 +171,11 @@ class HomeFragment: Fragment() {
                     false
                 }
             )
+            it.btnToCart.setOnClickListener {
+                Navigation.findNavController(requireView()).navigate(
+                    HomeFragmentDirections.actionHomeToCart()
+                )
+            }
         }
     }
 
@@ -238,6 +259,10 @@ class HomeFragment: Fragment() {
        Navigation.findNavController(requireView()).navigate(
             HomeFragmentDirections.actionHomeToDetail(product.id)
        )
+    }
+
+    private fun addCart(productResults: ProductResults) {
+        searchProductViewModel.addToCart(productResults)
     }
 
     private fun clearOfSet() {
