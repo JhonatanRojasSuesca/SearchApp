@@ -51,7 +51,8 @@ class SearchProductViewModel(
                     _model.value = getStateFromException(domainException)
                 }
                 .collect { response ->
-                    productsList.postValue(getListIdsDatabase(response.productsSearch))
+                    productsList.value = response.productsSearch
+                    validateProductsInCart()
                 }
         }
     }
@@ -69,6 +70,32 @@ class SearchProductViewModel(
             }
         }
         return productsSearch
+    }
+
+    fun validateProductsInCart() {
+        viewModelScope.launch {
+            val listCart = managementProductLocalCartUC.getListIdsCart()
+            productsList.value?.let {
+                it.forEach { productResults ->
+                    productResults.apply {
+                        isAddCart = false
+                    }
+                }
+            }
+            if (listCart.isNullOrEmpty().not()) {
+                listCart.forEach { id ->
+                    productsList.value?.find { it.id == id }
+                        .apply {
+                            this?.let {
+                                isAddCart = true
+                            }
+                        }
+                }
+            }
+            if (productsList.value.isNullOrEmpty().not()) {
+                productsList.postValue(productsList.value)
+            }
+        }
     }
 
     private fun getStateFromException(

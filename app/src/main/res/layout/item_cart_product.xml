@@ -25,13 +25,12 @@
         android:layout_width="@dimen/match_parent_0dp"
         android:layout_height="@dimen/match_parent_0dp"
         android:layout_marginStart="@dimen/margin_8dp"
-        android:layout_marginTop="@dimen/margin_8dp"
         android:layout_marginEnd="@dimen/margin_16dp"
         android:orientation="vertical"
         app:layout_constraintStart_toEndOf="@id/imvProduct"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/txvTitleSellerBy">
+        app:layout_constraintBottom_toBottomOf="@+id/deleteCart">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txvProductName"
@@ -45,33 +44,12 @@
             android:id="@+id/txvProductPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8dp"
             android:textStyle="bold"
             android:textSize="@dimen/text_16sp"
             tools:text="$ 23333" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txvTitleSellerBy"
-        android:layout_width="@dimen/match_parent_0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_8dp"
-        android:textSize="@dimen/text_12sp"
-        android:text="@string/sellerBy"
-        app:layout_constraintBottom_toBottomOf="@+id/imvProduct"
-        app:layout_constraintStart_toEndOf="@+id/imvProduct" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txvNameSeller"
-        android:layout_width="@dimen/match_parent_0dp"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_14sp"
-        android:textStyle="bold"
-        android:layout_marginStart="@dimen/margin_8dp"
-        tools:text="ktronix"
-        app:layout_constraintStart_toEndOf="@+id/txvTitleSellerBy"
-        app:layout_constraintBottom_toBottomOf="@+id/txvTitleSellerBy"
-        app:layout_constraintTop_toTopOf="@+id/txvTitleSellerBy" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/deleteCart"
