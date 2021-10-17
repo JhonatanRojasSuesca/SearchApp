@@ -14,6 +14,7 @@ import com.jhonatanrojas.searchapp.utils.visible
  * Created by JHONATAN ROJAS on 9/10/2021.
  */
 class CartProductsAdapter(
+    private val selectGoToDetail : (ProductResults) -> Unit,
     private val deleteProduct: (ProductResults) -> Unit
 ) : RecyclerView.Adapter<CartProductsAdapter.SearchProductViewHolder>() {
 
@@ -45,6 +46,7 @@ class CartProductsAdapter(
 
     override fun onBindViewHolder(holder: SearchProductViewHolder, position: Int) {
         val product = storageProduct[position]
+        holder.itemView.setOnClickListener { selectGoToDetail(product) }
         holder.bind(product, holder.itemView.context)
     }
 
@@ -61,16 +63,6 @@ class CartProductsAdapter(
                 txvProductName.text = product.title
                 txvProductPrice.text = "$  ${product.price.toInt()}"
                 imvProduct.setImageUrl(context, product.thumbnail)
-                product.seller?.apply {
-                    if (nick_name.isNullOrEmpty()) {
-                        txvNameSeller.gone()
-                        txvTitleSellerBy.gone()
-                    } else {
-                        txvNameSeller.text = nick_name
-                        txvNameSeller.visible()
-                        txvTitleSellerBy.visible()
-                    }
-                }
                 lnlItemProduct.elevation = ELEVATION_CARD
             }
         }

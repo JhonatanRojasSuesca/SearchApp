@@ -91,6 +91,11 @@ class HomeFragment: Fragment() {
         setUpListeners()
     }
 
+    override fun onResume() {
+        super.onResume()
+        searchProductViewModel.validateProductsInCart()
+    }
+
     private fun managementOnBackHome() {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -166,6 +171,11 @@ class HomeFragment: Fragment() {
                     false
                 }
             )
+            it.btnToCart.setOnClickListener {
+                Navigation.findNavController(requireView()).navigate(
+                    HomeFragmentDirections.actionHomeToCart()
+                )
+            }
         }
     }
 

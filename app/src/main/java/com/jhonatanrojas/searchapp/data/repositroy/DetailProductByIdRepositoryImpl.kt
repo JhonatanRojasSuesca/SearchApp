@@ -21,6 +21,11 @@ class DetailProductByIdRepositoryImpl(
         Product>
 ) : DetailProductByIdRepository {
 
+    /**
+     * Este Metodo del api el detalle del producto con el id pasado por parametro
+     * y ejecuta los mapper que pasa del ProductResponse a Product modelo de dominio para la vista del detalle
+     * asi mismo el mapper de exception que se tranbsforma a exception controladas de DomainException
+     */
     override fun getProductById(id: String): Flow<Product> {
         return flow {
             searchProductApi.getProductDetail(id)
