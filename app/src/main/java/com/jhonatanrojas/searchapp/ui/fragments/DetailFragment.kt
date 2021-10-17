@@ -87,7 +87,13 @@ class DetailFragment : Fragment() {
         }
         binding.cart.setOnClickListener {
             detailProductViewModel.addProductToCart()
-            it.gone()
+            binding.cart.gone()
+            binding.deleteCart.visible()
+        }
+        binding.deleteCart.setOnClickListener {
+            detailProductViewModel.deleteProductCart()
+            binding.cart.visible()
+            binding.deleteCart.gone()
         }
         binding.imvCloseZoom.setOnClickListener { hideImageZoom() }
     }
@@ -101,7 +107,13 @@ class DetailFragment : Fragment() {
                 setSoldQuantity(product.soldQuantity)
                 viewPagerAdapter.setListImage(product.pictures)
                 attributesAdapter.setListAttributes(product.attributes)
-                cart.visibility = if (product.isAddCart) View.GONE else View.VISIBLE
+                if (product.isAddCart){
+                    cart.gone()
+                    deleteCart.visible()
+                } else{
+                    cart.visible()
+                    deleteCart.gone()
+                }
             }
         })
     }

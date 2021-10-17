@@ -63,6 +63,14 @@ class DetailProductViewModel(
         }
     }
 
+    fun deleteProductCart(){
+        viewModelScope.launch {
+            product.value?.let {
+                managementProductLocalCartUC.deleteProductCart(mapperProductToProductResults(it))
+            }
+        }
+    }
+
     private fun getStateFromException(
         domainException: DomainException
     ): DetailState {
