@@ -36,6 +36,12 @@ class SearchProductViewModel(
     var textSearch: String = ""
     var isDownloading = false
 
+    /**
+     * metodo del search para traer los resultados de la busqueda
+     * con los estados para el manejo del loading yde errores
+     * tambien envia el live data de la lista de los productos buscados
+     */
+
     fun searchProduct() = viewModelScope.launch {
         if (isDownloading.not()) {
             isDownloading = true
@@ -57,21 +63,9 @@ class SearchProductViewModel(
         }
     }
 
-    private suspend fun getListIdsDatabase(productsSearch: List<ProductResults>): List<ProductResults> {
-        val listCart = managementProductLocalCartUC.getListIdsCart()
-        if (listCart.isNullOrEmpty().not()) {
-            listCart.forEach { id ->
-                productsSearch.find { it.id == id }
-                    .apply {
-                        this?.let {
-                            isAddCart = true
-                        }
-                    }
-            }
-        }
-        return productsSearch
-    }
-
+    /**
+     *valida que los productos enlistados en la busqueda ya estene dentro del carrito para ocupar el icono de eliminar del carrito
+     */
     fun validateProductsInCart() {
         viewModelScope.launch {
             val listCart = managementProductLocalCartUC.getListIdsCart()
@@ -98,6 +92,9 @@ class SearchProductViewModel(
         }
     }
 
+    /**
+     * trae el estado con la exception causada y tener el manejo de los errores con los recursos y darle al usuario un error reconocible
+     */
     private fun getStateFromException(
         domainException: DomainException
     ): SearchState {
@@ -111,6 +108,10 @@ class SearchProductViewModel(
         }
     }
 
+    /**
+     *este metodo sirve para la validacion de si el usuario necesita mas items con la misma busqueda referenciada
+     * y maneja la paginacion
+     */
     fun onLoadMoreData(visibleItemCount: Int, firstVisibleItemPosition: Int, totalItemCount: Int) {
         if (!isInFooter(visibleItemCount, firstVisibleItemPosition, totalItemCount)) {
             return
@@ -119,6 +120,9 @@ class SearchProductViewModel(
         searchProduct()
     }
 
+    /**
+     * valida si las condiciones para poder ejecutar la busqueda por la misma referencia
+     */
     private fun isInFooter(
         visibleItemCount: Int,
         firstVisibleItemPosition: Int,
@@ -129,11 +133,17 @@ class SearchProductViewModel(
             && totalItemCount >= PAGE_SIZE
     }
 
+    /**
+     * agrega el producto al carrito
+     */
     fun addToCart(productResults: ProductResults) {
         viewModelScope.launch {
             managementProductLocalCartUC.insertProductCart(productResults)
         }
     }
+    /**
+     * elimina el producto al carrito
+     */
     fun deleteProductCart(productResults: ProductResults) {
         viewModelScope.launch {
             managementProductLocalCartUC.deleteProductCart(productResults)

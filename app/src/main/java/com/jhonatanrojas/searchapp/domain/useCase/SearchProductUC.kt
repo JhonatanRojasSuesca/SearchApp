@@ -10,6 +10,9 @@ import kotlinx.coroutines.flow.Flow
 class SearchProductUC(
     private val searchProductRepository: SearchProductRepository
 ) {
+    /**
+     * metodo del caso de uso que trae la busqueda ejecutada desde el search con parametros
+     */
     fun getSearchProduct(search: String, offset: Int, limit: Int): Flow<ProductsDomain> {
         return searchProductRepository.searchProduct(
             search,

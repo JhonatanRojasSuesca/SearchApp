@@ -25,6 +25,9 @@ class CartProductViewModel(
     val model: StateFlow<CartState>
         get() = _model
 
+    /**
+     * trae todos los productos agregados al carrito maneja los estados del loading y agrega los productos al live data
+     */
     fun getProductsCart() = viewModelScope.launch {
         managementProductLocalCartUC.getProductCart()
             .onStart {
@@ -39,12 +42,18 @@ class CartProductViewModel(
             }
     }
 
+    /**
+     * elimina el producto al carrito
+     */
     fun deleteProductCart(productResults: ProductResults) {
         viewModelScope.launch {
             managementProductLocalCartUC.deleteProductCart(productResults)
         }
     }
 
+    /**
+     * elimina todos los productos del carrito
+     */
     fun deleteAllCart() {
         viewModelScope.launch {
             managementProductLocalCartUC.deleteAllCart()

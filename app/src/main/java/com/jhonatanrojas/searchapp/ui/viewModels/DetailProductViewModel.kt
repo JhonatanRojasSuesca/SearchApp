@@ -35,6 +35,10 @@ class DetailProductViewModel(
     val model: StateFlow<DetailState>
         get() = _model
 
+    /**
+     * metodo que trae el producto completo y detallado para mostrar en el detalle incluye la lista de imagenes del producto
+     * y maneja los estados yu las exceptions con flow y valida si el producto en el detalle esta ya en el carrito
+     */
     fun getProductById(id: String) = viewModelScope.launch {
         val isProductInCart = managementProductLocalCartUC.productIsAddCart(id)
         getProductDetailUC.getProductById(id)
@@ -55,6 +59,9 @@ class DetailProductViewModel(
             }
     }
 
+    /**
+     * agrega el producto al carrito
+     */
     fun addProductToCart(){
         viewModelScope.launch {
             product.value?.let {
@@ -63,6 +70,9 @@ class DetailProductViewModel(
         }
     }
 
+    /**
+     * elimina el producto al carrito
+     */
     fun deleteProductCart(){
         viewModelScope.launch {
             product.value?.let {
@@ -71,6 +81,9 @@ class DetailProductViewModel(
         }
     }
 
+    /**
+     * trae la exception que viene por flow y la trasnforma a estados de errores agregando al
+     */
     private fun getStateFromException(
         domainException: DomainException
     ): DetailState {
